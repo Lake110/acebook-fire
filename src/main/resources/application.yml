@@ -1,5 +1,5 @@
 okta:
   oauth2:
-    issuer: https://dev-57w8xbk2q6yfm4ol.us.auth0.com/
-    client-id: B8KyJqT3BN9W5VXimRY6UI5rSjzcjMKn
-    client-secret: aV1omLQgFoW2YcI-G3nMfBGU6qL_p2lRY2GKHz3zZphXvr3c9WeLB3Bo1J-q7FVz
+    issuer: https://dev-4pcqe86nvjg7lro2.us.auth0.com/
+    client-id: nMe3nystE2NswtdDdTPNUFjNJzmRHoNW
+    client-secret: N4-J_FCLvsKMTQbrupj-ML4ymOPBW4G1SPFFc1NL1OGa6Z0XIdPJ0SIsVo4hrkJ4
