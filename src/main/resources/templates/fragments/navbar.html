@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<nav th:fragment="navbar">
+    <a href="/">Feed</a>
+    <a href="/profile">Profile</a>
+
+    <span sec:authorize="isAuthenticated()">
+        <a href="/logout">Logout</a>
+    </span>
+
+    <span sec:authorize="!isAuthenticated()">
+        <a href="/login">Login</a>
+    </span>
+</nav>
