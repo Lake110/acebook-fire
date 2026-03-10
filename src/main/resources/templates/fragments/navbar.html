@@ -5,6 +5,10 @@
     <a href="/profile">Profile</a>
 
     <span sec:authorize="isAuthenticated()">
+        <a href="/settings">User Settings</a>
+    </span>
+
+    <span sec:authorize="isAuthenticated()">
         <a href="/logout">Logout</a>
     </span>
 
