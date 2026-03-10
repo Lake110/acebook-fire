@@ -20,7 +20,7 @@ public class HomeController {
 	@GetMapping("/")
 	public ModelAndView IndexPage() {
 		ModelAndView modelAndView = new ModelAndView("posts/homefeed");
-		List<Post> posts = postRepository.findAll();
+		List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
 		modelAndView.addObject("posts", posts);
 		return modelAndView;
 	}

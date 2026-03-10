@@ -9,23 +9,26 @@ import static java.lang.Boolean.TRUE;
 @Entity
 @Table(name = "USERS")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "username")
     private String username;
+
     private boolean enabled;
 
     public User() {
         this.enabled = TRUE;
     }
 
-    public User(String username) {
+    public User(String email, String username) {
+        this.email = email;
         this.username = username;
         this.enabled = TRUE;
-    }
-
-    public User(String username, boolean enabled) {
-        this.username = username;
-        this.enabled = enabled;
     }
 }

@@ -20,10 +20,15 @@ public class UsersController {
                 .getAuthentication()
                 .getPrincipal();
 
-        String username = (String) principal.getAttributes().get("email");
-        userRepository
-                .findUserByUsername(username)
-                .orElseGet(() -> userRepository.save(new User(username)));
+        String email = (String) principal.getAttributes().get("email");
+        String username = email.substring(0, email.indexOf('@'));
+
+        userRepository.findUserByEmail(email).orElseGet(() -> {
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setUsername(username);
+            return userRepository.save(newUser);
+        });
 
         return new RedirectView("/posts");
     }
