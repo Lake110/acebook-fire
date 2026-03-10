@@ -8,3 +8,8 @@
     text-align: left;
     margin-bottom: 0.5rem;;
 }
+
+.posts {
+height: 100vh;
+overflow-y: scroll;
+}
