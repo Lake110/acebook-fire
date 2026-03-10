@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <head>
     <meta charset="UTF-8">
     <title>Acebook</title>
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+
 <div class="posts">
     <div th:each="post : ${posts}" class="post-main">
         <p th:text="${post.content}"></p>
