@@ -25,7 +25,7 @@ public class NavbarTest {
 
     @Test
     public void homePageShowsNavbarLinksForLoggedOutUser() {
-        driver.get("http://localhost:8080/");
+        driver.get("http://localhost:8081/");
 
         assertTrue(driver.findElement(By.linkText("Feed")).isDisplayed());
         assertTrue(driver.findElement(By.linkText("Profile")).isDisplayed());
