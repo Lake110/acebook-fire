@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,13 @@
     <div th:if="${#lists.isEmpty(posts)}" class="empty-state">
         <i class="bi bi-chat-square-text"></i>
         <p class="fw-600">No posts yet. Be the first to share something!</p>
+        <span th:if="${post.updatedAt}">(edited)</span>
+        <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get">
+            <button type="submit">Edit</button>
+        </form>
+        <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
+            <button type="submit">Delete</button>
+        </form>
     </div>
 
     <!-- Post cards -->

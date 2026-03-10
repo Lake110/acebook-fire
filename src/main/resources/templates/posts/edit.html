@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Acebook</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+<form th:action="@{/posts/{id}(id=${post.id})}" th:object="${post}" method="post">
+
+  <textarea th:field="*{content}"></textarea>
+
+  <button type="submit">Update Post</button>
+
+</form>
+</body>
+</html>

@@ -50,4 +50,30 @@ public class PostsController {
         redirectAttributes.addFlashAttribute("message", "Post submitted!");
         return new RedirectView("/posts");
     }
+
+    @GetMapping("/posts/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Post post = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute Post post, RedirectAttributes redirectAttributes) {
+        post.setId(id);
+        post.setUpdatedAt(LocalDateTime.now());
+        repository.save(post);
+        redirectAttributes.addFlashAttribute("message", "Post updated!");
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        repository.deleteById(id);
+
+        redirectAttributes.addFlashAttribute("message", "Post deleted!");
+        return "redirect:/posts";
+    }
 }

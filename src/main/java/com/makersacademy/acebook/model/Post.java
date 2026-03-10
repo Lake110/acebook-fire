@@ -6,9 +6,14 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Getter @Setter
 @Table(name = "POSTS")
 public class Post {
 
@@ -24,6 +29,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
+    private LocalDateTime updatedAt;
 
     public Post() {}
 
