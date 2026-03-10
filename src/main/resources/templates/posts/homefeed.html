@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +8,9 @@
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
 <div class="posts">
     <div th:each="post : ${posts}" class="post-main">
         <p th:text="${post.content}"></p>
