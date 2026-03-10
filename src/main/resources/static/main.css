@@ -6,12 +6,12 @@
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: left;
-    margin-bottom: 0.5rem;;
+    margin-bottom: 0.5rem;
 }
 
 .posts {
-height: 100vh;
-overflow-y: scroll;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 nav {
@@ -25,7 +25,111 @@ nav a {
 }
 
 .post-cards {
-max-width: 680px;
-height: 100vh;
-overflow-y: auto;
+    max-width: 680px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Shared page layout */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+/* Shared card style */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Settings page */
+.settings-card {
+    background-color: #ffffff;
+    padding: 2rem;
+}
+
+.settings-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.settings-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.settings-card p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.settings-card .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+}
+
+.settings-card .form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
+}
+
+.settings-card .btn-primary {
+    background-color: #4f46e5;
+    border: none;
+    border-radius: 8px;
+}
+
+.settings-card .btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.settings-card .btn-danger {
+    border-radius: 8px;
+}
+
+/* Posts page */
+.posts-card {
+    background-color: #ffffff;
+}
+
+.posts-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.posts-card .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+.posts-card .form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
+}
+
+.posts-card .btn-primary {
+    background-color: #4f46e5;
+    border: none;
+    border-radius: 8px;
+}
+
+.posts-card .btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.posts-card .btn-outline-secondary {
+    border-radius: 8px;
+    color: #555;
+    border-color: #ccc;
+}
+
+.posts-card .btn-outline-secondary:hover {
+    background-color: #f0f2f5;
+    color: #333;
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Acebook - Account Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card p-4 mx-auto text-center shadow-sm settings-card" style="max-width: 600px; width: 100%;">
+
+        <h2 class="mb-4">Account Settings</h2>
+
+        <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+
+        <hr class="my-4">
+        <h5 class="mb-3">Update Username</h5>
+        <form th:action="@{/users/settings/username}" method="post">
+            <div class="mb-3">
+                <input type="text" name="username" class="form-control text-center"
+                       th:value="${user.username}" placeholder="New username" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update Username</button>
+        </form>
+
+        <hr class="my-4">
+        <h5 class="mb-3 text-danger">Account Deletion</h5>
+        <form th:action="@{/users/settings/delete}" method="post">
+            <button type="submit" id="delete-account-btn" class="btn btn-danger w-100"
+                    onclick="return confirm('Are you sure? This will delete your account and all your posts.')">
+                Delete Account
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
