@@ -36,5 +36,4 @@ public class Post {
     public Post(String content) {
         this.content = content;
     }
-
 }
