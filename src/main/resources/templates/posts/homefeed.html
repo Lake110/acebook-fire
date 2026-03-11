@@ -7,57 +7,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acebook</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/main.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="main.css" rel="stylesheet">
 </head>
 <body>
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<!-- Posts -->
-<div class="posts-feed">
+<div class="feed-wrapper">
+
+    <!-- Title card -->
+    <div class="feed-title-card">
+        <h1 class="feed-title">Acebook</h1>
+        <p class="feed-subtitle">See what your friends are up to</p>
+    </div>
+
     <!-- Empty state -->
     <div th:if="${#lists.isEmpty(posts)}" class="empty-state">
         <i class="bi bi-chat-square-text"></i>
-        <p class="fw-600">No posts yet. Be the first to share something!</p>
-<!--        <span th:if="${post.updatedAt}">(edited)</span>-->
-
+        <p>No posts yet. Be the first to share something!</p>
     </div>
 
     <!-- Post cards -->
-    <div class="post-cards container py-4 text-center">
+    <div th:each="post : ${posts}" class="post-card">
 
-        <div th:each="post : ${posts}" class="card mb-3 shadow-sm">
-            <div class="card-body">
-                <p class="card-text" th:text="${post.content}"></p>
-                <small class="text-muted" th:text="
-                'Posted on '
-                + ${#temporals.format(post.createdAt, 'dd/MM/yyyy')}
-                + ' at '
-                + ${#temporals.format(post.createdAt, 'HH:mm')}"></small>
-                <small class="text-muted" th:text="'Posted by ' + ${post.user?.username}"></small>
-                <br>
-                <div >
-                <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" >
-                    <button type="submit" class="col-1" >Edit</button>
-                </form>
-                <br>
-                <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
-                    <button type="submit" class="col-1">Delete</button>
-                </form>
-                </div>
-            </div>
+        <!-- author + date -->
+        <div class="post-meta">
+            <span class="post-author" th:text="${post.user?.username}"></span>
+            <span th:text="
+                'Posted on ' +
+                ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
+                + ' @ '
+                + ${#temporals.format(post.createdAt, 'HH:mm')}">
+            </span>
         </div>
 
-        <br>
-        <a th:href="@{/posts}" class="btn btn-primary">Make a Post</a>
-    </div>
+        <!-- Content -->
+        <p class="post-content" th:text="${post.content}"></p>
 
-    <div>
-        <div th:replace="~{fragments/footer :: footer}"></div>
-    </div>
+        <!-- Actions -->
+        <div class="post-actions">
+            <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" class="m-0">
+                <button type="submit" class="btn btn-primary btn-sm px-3">Edit</button>
+            </form>
+            <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" class="m-0">
+                <button type="submit" class="btn btn-danger btn-sm px-3">Delete</button>
+            </form>
+        </div>
 
+    </div>
 
 </div>
+
+<!-- Post button -->
+<div class="feed-post-btn-bar justify-content-center">
+    <a th:href="@{/posts}" class="btn btn-primary px-5 ">
+        <i class="bi bi-pencil-square me-2"></i>Make a Post
+    </a>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
