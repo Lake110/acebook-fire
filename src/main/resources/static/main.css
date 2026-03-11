@@ -104,6 +104,38 @@ nav a {
     border-top: 1px solid #f0f0f0;
 }
 
+/* ─── Post button ─────────────────────────── */
+
+.feed-post-btn-bar {
+    position: fixed;
+    bottom: 5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.feed-post-btn-bar .mk-post {
+    background-color: #1877f2;
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(24, 119, 242, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feed-post-btn-bar .mk-post:hover {
+    transform: translateY(0px);
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.55);
+}
+
+.feed-wrapper {
+    padding-bottom: 6rem;
+}
+
 /* ─── Settings page ─────────────────────────────────────── */
 
 .settings-card {
@@ -235,4 +267,12 @@ nav a {
     border-color: #4f46e5;
     box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
     outline: none;
+}
+
+/* profile page */
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+
 }
