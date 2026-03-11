@@ -36,12 +36,15 @@
                 + ${#temporals.format(post.createdAt, 'HH:mm')}"></small>
                 <small class="text-muted" th:text="'Posted by ' + ${post.user?.username}"></small>
                 <br>
-                <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get">
-                    <button type="submit">Edit</button>
+                <div >
+                <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" >
+                    <button type="submit" class="col-1" >Edit</button>
                 </form>
+                <br>
                 <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="col-1">Delete</button>
                 </form>
+                </div>
             </div>
         </div>
 
