@@ -62,11 +62,15 @@ public class PostsController {
 
     @PostMapping("/posts/{id}")
     public String update(@PathVariable Long id, @ModelAttribute Post post, RedirectAttributes redirectAttributes) {
-        post.setId(id);
-        post.setUpdatedAt(LocalDateTime.now());
-        repository.save(post);
+        Post existingPost = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post Id:" + id));
+
+        existingPost.setContent(post.getContent());
+        existingPost.setUpdatedAt(LocalDateTime.now());
+
+        repository.save(existingPost);
         redirectAttributes.addFlashAttribute("message", "Post updated!");
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     @PostMapping("/posts/{id}/delete")
