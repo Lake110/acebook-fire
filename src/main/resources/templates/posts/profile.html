@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"  lang="en">
+<head>
+    <meta charset = "utf-8">
+    <title>Profile</title>
+</head>
+<body>
+
+    <!--profile pic-->
+    <img src = "https://placehold.co/150x150" alt = "Profile photo here"/>
+    <button>Upload Photo</button>
+
+    <h1>My Acebook Profile</h1>
+
+    <!--bio-->
+    <p th:text = "${user.username}">Username</p><p> <!--Should be the email used with Auth0 up until the @-->
+    <p th:text = "${user.email}">email@example.com</p> <!--Should be the email used with Auth0-->
+    <p>Bio: bio goes here blah blah blah</p>
+    <p>Relationship status:
+        <select disabled>
+            <option selected>Single</option>
+            <option>In a relationship</option>
+            <option>Engaged</option>
+            <option>Married</option>
+        </select>
+    </p>
+
+    <button>Edit Profile</button>
+    <!--usder posts-->
+    <h2>My posts</h2>
+        <ul>
+            <li th:each = "post : ${posts}" th:text ="${post.content}"> </li>  <!--${posts} is waiting on migration !-->
+        </ul>
+</body>
+</html>
