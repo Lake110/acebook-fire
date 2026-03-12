@@ -353,7 +353,92 @@ nav a {
     cursor: pointer;
     border: 2px solid white;
     font-size: 0.7rem;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
+
+.camera-overlay:hover {
+    background: #764ba2;
+    transform: scale(1.1);
+}
+
+/* ─── logout style ─────────────────────────────────── */
+
 .logout {
     float: right;
+}
+
+/* ─── Avatar - Feed Icon ─────────────────────────────────── */
+
+.avatar-feed {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* ─── Avatar - Modal Grid ────────────────────────────────── */
+
+.avatar-modal-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.avatar-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar-option-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid #dee2e6;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    object-fit: cover;
+}
+
+.avatar-option-img:hover {
+    border-color: #667eea;
+    transform: scale(1.08);
+}
+
+.avatar-option-img.selected-avatar {
+    border-color: #667eea;
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+.avatar-option-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-top: 0.35rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/* ─── Avatar - Style Filter ──────────────────────────────── */
+
+.avatar-style-filter {
+    max-width: 250px;
+    margin-bottom: 1.25rem;
+}
+
+.avatar-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.avatar-radio:checked + .avatar-option-img {
+    border-color: #667eea;
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
 }
