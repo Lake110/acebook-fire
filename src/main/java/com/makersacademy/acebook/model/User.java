@@ -21,6 +21,9 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @Column(nullable = false)
+    private String avatarStyle = "thumbs";
+
     private boolean enabled;
 
     private String bio;
@@ -39,5 +42,17 @@ public class User {
         this.email = email;
         this.username = username;
         this.enabled = TRUE;
+    }
+
+    public String getAvatarUrl() {
+        return "https://api.dicebear.com/9.x/" + avatarStyle + "/svg?seed=" + this.username;
+    }
+
+    public String getAvatarStyle() {
+        return avatarStyle;
+    }
+
+    public void setAvatarStyle(String avatarStyle) {
+        this.avatarStyle = avatarStyle;
     }
 }
