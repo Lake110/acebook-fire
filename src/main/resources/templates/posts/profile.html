@@ -37,9 +37,7 @@
         <h4 class="mb-0 fw-bold" th:text="${user.username}">Username</h4>
         <p class="text-muted small mb-3" th:text="${user.email}">email@example.com</p>
 
-        <p class="text-secondary mb-3">
-            Bio goes here — something interesting about this person.
-        </p>
+        <p class="text-secondary mb-3" th:text = "${user.bio} ?: 'No bio yet.'"></p>
 
         <div class="d-flex justify-content-center mb-3 border rounded p-2">
             <div class="stat-box">
@@ -53,24 +51,50 @@
         </div>
 
         <div th:if="${isOwnProfile}" class="d-flex justify-content-center gap-2 mb-3">
-            <a th:href="@{/settings}" class="btn btn-primary btn-sm px-4">
+            <button type="button" class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                 <i class="bi bi-pencil-square me-1"></i> Edit Profile
+            </button>
+            <a th:href="@{/settings}" class="btn btn-outline-secondary btn-sm px-4">
+                <i class="bi bi-gear me-1"></i> Account Settings
             </a>
         </div>
 
-        <p class="text-secondary mb-2">
+        <p class="text-secondary mb-2" th:if="${user.relationshipStatus}">
             <i class="bi bi-heart-fill text-danger me-1"></i>
-            <span id="relationship-display">Single</span>
+            <span th:text="${user.relationshipStatus}"></span>
         </p>
 
-        <div th:if="${isOwnProfile}" class="mb-3">
-            <select class="form-select form-select-sm w-auto mx-auto"
-                    onchange="document.getElementById('relationship-display').textContent = this.value">
-                <option>Single</option>
-                <option>In a relationship</option>
-                <option>Engaged</option>
-                <option>Married</option>
-            </select>
+        <div class="modal fade" id="editProfileModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form th:action="@{/profile/edit}" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-control" name="bio" rows="3" th:text="${user.bio}"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Relationship Status</label>
+                                <select class="form-select" name="relationshipStatus">
+                                    <option value="">-- Select --</option>
+                                    <option value="Single" th:selected="${user.relationshipStatus == 'Single'}">Single</option>
+                                    <option value="In a relationship" th:selected="${user.relationshipStatus == 'In a relationship'}">In a relationship</option>
+                                    <option value="Engaged" th:selected="${user.relationshipStatus == 'Engaged'}">Engaged</option>
+                                    <option value="Married" th:selected="${user.relationshipStatus == 'Married'}">Married</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -140,6 +164,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
