@@ -29,10 +29,6 @@ public class User {
     private boolean enabled;
     private String bio;
     private LocalDate birthday;
-    private String relationshipStatus;
-
-    private String bio;
-    private LocalDate birthday;
 
     @Column(name = "relationship_status")
     private String relationshipStatus;
