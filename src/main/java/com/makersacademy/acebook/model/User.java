@@ -3,6 +3,8 @@ package com.makersacademy.acebook.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 import static java.lang.Boolean.TRUE;
 
 @Data
@@ -24,6 +26,9 @@ public class User {
     private String avatarStyle = "thumbs";
 
     private boolean enabled;
+    private String bio;
+    private LocalDate birthday;
+    private String relationshipStatus;
 
     public User() {
         this.enabled = TRUE;

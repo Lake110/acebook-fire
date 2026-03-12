@@ -37,8 +37,8 @@
         <h4 class="mb-0 fw-bold" th:text="${user.username}">Username</h4>
         <p class="text-muted small mb-3" th:text="${user.email}">email@example.com</p>
 
-        <p class="text-secondary mb-3">
-            Bio goes here — something interesting about this person.
+        <p class="text-secondary mb-3"
+           th:text="${user.bio != null ? user.bio : 'No bio yet.'}">
         </p>
 
         <div class="d-flex justify-content-center mb-3 border rounded p-2">
@@ -60,20 +60,18 @@
 
         <p class="text-secondary mb-2">
             <i class="bi bi-heart-fill text-danger me-1"></i>
-            <span id="relationship-display">Single</span>
+            <span id="relationship-display"
+                  th:text="${user.relationshipStatus != null ? user.relationshipStatus : 'Single'}">
+            </span>
         </p>
 
-        <div th:if="${isOwnProfile}" class="mb-3">
-            <select class="form-select form-select-sm w-auto mx-auto"
-                    onchange="document.getElementById('relationship-display').textContent = this.value">
-                <option>Single</option>
-                <option>In a relationship</option>
-                <option>Engaged</option>
-                <option>Married</option>
-            </select>
-        </div>
-
+        <p class="text-secondary mb-2" th:if="${user.birthday != null}">
+            <i class="bi bi-cake-fill me-1"></i>
+            Birthday:
+            <span th:text="${#temporals.format(user.birthday, 'dd MMM yyyy')}"></span>
+        </p>
     </div>
+
 
     <div class="card px-4 py-3 mb-4">
 
