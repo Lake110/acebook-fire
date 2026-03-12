@@ -10,10 +10,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.security.core.Authentication;
 
-import java.sql.SQLOutput;
-import java.util.Optional;
 @Controller
 public class FriendController {
     @Autowired
