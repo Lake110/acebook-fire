@@ -49,7 +49,7 @@
             </div>
             <div class="stat-box">
                 <div class="stat-number" th:text="${friendCount}">0</div>
-                <div class="stat-label">Friends</div>
+                <div class="stat-label" th:text="${friendCount==1} ? 'Friend': 'Friends'"></div>
             </div>
         </div>
 

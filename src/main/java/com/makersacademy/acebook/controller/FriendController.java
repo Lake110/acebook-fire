@@ -40,8 +40,8 @@ public class FriendController {
         }
         Long lower = Math.min(userId, friendId);
         Long higher = Math.max(userId, friendId);
-        //checks if already in db
 
+        //checks if already in db
         try {
             if (!friendRepository.existsByUserIdAndFriendId(lower, higher)) {
                 friendRepository.save(new Friend(lower, higher));
