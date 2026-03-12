@@ -58,6 +58,7 @@
 
         <!-- Actions -->
         <div class="post-actions" th:if="${#authentication.principal.attributes['email'] == post.user.email}">
+
             <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" class="m-0">
                 <button type="submit" class="btn btn-primary btn-sm px-3">Edit</button>
             </form>
@@ -65,7 +66,10 @@
                 <button type="submit" class="btn btn-danger btn-sm px-3">Delete</button>
             </form>
         </div>
-
+        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0">
+            <button type="submit" class="btn btn-primary btn-sm px-3">👍 Like</button>
+            <span th:text="${@likeRepository.countByPost(post)} + ' likes'">0</span>
+        </form>
     </div>
 
 </div>
