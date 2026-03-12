@@ -2,6 +2,7 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.AvatarOptions;
 import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ProfileController {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    FriendRepository friendRepository;
+
     // helper method to avoid repeating the auth logic
     private User getLoggedInUser() {
         DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
@@ -52,7 +56,14 @@ public class ProfileController {
 
         User user = userRepository.findById(id).orElseThrow();
         User loggedInUser = getLoggedInUser();
+        Long loggedInUserId = loggedInUser.getId();
 
+        boolean alreadyFriends = false;
+        if (!loggedInUserId.equals(id)) { // don’t check for self
+            alreadyFriends = friendRepository.areFriends(loggedInUserId, id);
+        }
+
+        modelAndView.addObject("alreadyFriends", alreadyFriends);
         modelAndView.addObject("posts", postRepository.findByUser(user));
         modelAndView.addObject("user", user);
         modelAndView.addObject("isOwnProfile", loggedInUser.getId().equals(user.getId()));
