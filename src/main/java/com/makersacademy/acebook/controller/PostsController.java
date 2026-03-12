@@ -1,11 +1,17 @@
 package com.makersacademy.acebook.controller;
 
+import com.makersacademy.acebook.model.Like;
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
+import com.makersacademy.acebook.repository.LikeRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -15,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,6 +32,9 @@ public class PostsController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -49,6 +59,28 @@ public class PostsController {
         repository.save(post);
         redirectAttributes.addFlashAttribute("message", "Post submitted!");
         return new RedirectView("/posts");
+    }
+
+    @PostMapping("/posts/{post_id}/like")
+    public String likePost(@PathVariable Long post_id) {
+        DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        String email = (String) principal.getAttributes().get("email");
+        User currentUser = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Post post = repository.findById(post_id)
+                .orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        boolean alreadyLiked = likeRepository.existsByUserAndPost(currentUser, post);
+        if (alreadyLiked) {
+            likeRepository.deleteByUserAndPost(currentUser, post);
+        } else {
+            Like like = new Like(null, post, currentUser);
+            likeRepository.save(like);
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/posts/{id}/edit")
