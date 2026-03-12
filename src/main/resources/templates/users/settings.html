@@ -28,6 +28,7 @@
             <button type="submit" class="btn btn-primary w-100" id="liveToastBtn">Update Username</button>
 
         </form>
+        <div th:if="${message}" th:text="${message}" class="mt-3 text-muted small"></div>
             <hr class="my-4">
             <h5 class="mb-3">Profile Information</h5>
 
@@ -59,8 +60,8 @@
                 <button type="submit" class="btn btn-primary w-100">
                     Update Profile
                 </button>
-
             </form>
+        <div th:if="${message2}" th:text="${message2}" class="mt-3 text-muted small"></div>
 
 
         <hr class="my-4">

@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -58,7 +59,7 @@ public class UsersController {
     }
 
     @PostMapping("/users/settings/username")
-    public RedirectView updateUsername(@RequestParam String username) {
+    public RedirectView updateUsername(@RequestParam String username, RedirectAttributes redirectAttributes) {
         DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -69,7 +70,7 @@ public class UsersController {
             user.setUsername(username);
             userRepository.save(user);
         });
-
+        redirectAttributes.addFlashAttribute("message", "Submitted!");
         return new RedirectView("/settings");
     }
     @Transactional
@@ -92,7 +93,8 @@ public class UsersController {
     public RedirectView updateProfile(
             @RequestParam(required = false) String bio,
             @RequestParam(required = false) String birthday,
-            @RequestParam(required = false) String relationshipStatus) {
+            @RequestParam(required = false) String relationshipStatus,
+            RedirectAttributes redirectAttributes) {
 
         DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
                 .getContext()
@@ -112,7 +114,7 @@ public class UsersController {
 
             userRepository.save(user);
         });
-
+        redirectAttributes.addFlashAttribute("message2", "Submitted!");
         return new RedirectView("/settings");
     }
 
