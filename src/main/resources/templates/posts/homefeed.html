@@ -33,7 +33,9 @@
 
         <!-- author + date -->
         <div class="post-meta">
-            <span class="post-author" th:text="${post.user?.username}"></span>
+            <a th:href="@{/profile/{id}(id=${post.user?.id})}"
+               class="post-author"
+               th:text="${post.user?.username}"></a>
             <span th:text="
                 'Posted on ' +
                 ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
@@ -47,7 +49,7 @@
         <p class="post-content" th:text="${post.content}"></p>
 
         <!-- Actions -->
-        <div class="post-actions">
+        <div class="post-actions" th:if="${#authentication.principal.attributes['email'] == post.user.email}">
             <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" class="m-0">
                 <button type="submit" class="btn btn-primary btn-sm px-3">Edit</button>
             </form>

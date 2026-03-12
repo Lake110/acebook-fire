@@ -1,36 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"  lang="en">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+
 <head>
-    <meta charset = "utf-8">
-    <title>Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acebook Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
-<body>
 
-    <!--profile pic-->
-    <img src = "https://placehold.co/150x150" alt = "Profile photo here"/>
-    <button>Upload Photo</button>
+<body class="bg-light">
 
-    <h1>My Acebook Profile</h1>
+<div th:replace="fragments/navbar :: navbar"></div>
 
-    <!--bio-->
-    <p th:text = "${user.username}">Username</p><p> <!--Should be the email used with Auth0 up until the @-->
-    <p th:text = "${user.email}">email@example.com</p> <!--Should be the email used with Auth0-->
-    <p>Bio: bio goes here blah blah blah</p>
-    <p>Relationship status:
-        <select disabled>
-            <option selected>Single</option>
-            <option>In a relationship</option>
-            <option>Engaged</option>
-            <option>Married</option>
-        </select>
-    </p>
+<div class="container" style="max-width: 680px;">
 
-    <button>Edit Profile</button>
-    <!--usder posts-->
-    <h2>My posts</h2>
-        <ul>
-            <li th:each = "post : ${posts}" th:text ="${post.content}"> </li>  <!--${posts} is waiting on migration !-->
-        </ul>
+    <div class="cover-photo"></div>
+
+    <div class="card profile-header-card mb-3 px-4 pb-4 text-center">
+
+        <div class="profile-avatar-wrap mx-auto mb-2">
+            <img src="https://placehold.co/120x120"
+                 class="rounded-circle profile-avatar"
+                 alt="Profile photo">
+            <div th:if="${isOwnProfile}" class="camera-overlay">
+                <i class="bi bi-camera-fill text-white"></i>
+            </div>
+        </div>
+
+        <h4 class="mb-0 fw-bold" th:text="${user.username}">Username</h4>
+        <p class="text-muted small mb-3" th:text="${user.email}">email@example.com</p>
+
+        <p class="text-secondary mb-3">
+            Bio goes here — something interesting about this person.
+        </p>
+
+        <div class="d-flex justify-content-center mb-3 border rounded p-2">
+            <div class="stat-box">
+                <div class="stat-number" th:text="${#lists.size(posts)}">0</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Friends</div>
+            </div>
+        </div>
+
+        <div th:if="${isOwnProfile}" class="d-flex justify-content-center gap-2 mb-3">
+            <a th:href="@{/settings}" class="btn btn-primary btn-sm px-4">
+                <i class="bi bi-pencil-square me-1"></i> Edit Profile
+            </a>
+        </div>
+
+        <!-- Relationship status — visible to all, editable only by owner -->
+        <p class="text-secondary mb-2">
+            <i class="bi bi-heart-fill text-danger me-1"></i>
+            <span id="relationship-display">Single</span>
+        </p>
+
+        <div th:if="${isOwnProfile}" class="mb-3">
+            <select class="form-select form-select-sm w-auto mx-auto"
+                    onchange="document.getElementById('relationship-display').textContent = this.value">
+                <option>Single</option>
+                <option>In a relationship</option>
+                <option>Engaged</option>
+                <option>Married</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="card px-4 py-3 mb-4">
+
+        <h6 class="fw-bold text-muted text-uppercase mb-3 border-bottom pb-2"
+            th:text="${isOwnProfile} ? 'My Posts' : ${user.username} + |'s Posts|">
+            Posts
+        </h6>
+
+        <div th:if="${#lists.isEmpty(posts)}" class="text-center text-muted py-4">
+            <i class="bi bi-chat-left-text fs-2 d-block mb-2"></i>
+            <span th:text="${isOwnProfile} ? 'You haven\'t posted anything yet.' : 'No posts yet.'"></span>
+        </div>
+
+        <div th:each="post : ${posts}" class="post-card">
+            <div class="post-meta">
+                <span class="post-author" th:text="${user.username}">Username</span>
+            </div>
+            <div class="post-content" th:text="${post.content}">
+                Post content here
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
