@@ -63,6 +63,8 @@ public class ProfileController {
             alreadyFriends = friendRepository.areFriends(loggedInUserId, id);
         }
 
+        long friendCount = friendRepository.countFriends(user.getId());
+        modelAndView.addObject("friendCount", friendCount);
         modelAndView.addObject("alreadyFriends", alreadyFriends);
         modelAndView.addObject("posts", postRepository.findByUser(user));
         modelAndView.addObject("user", user);
