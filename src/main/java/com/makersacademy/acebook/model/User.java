@@ -25,7 +25,6 @@ public class User {
     private String avatarStyle = "thumbs";
 
     private boolean enabled;
-
     private String bio;
     private LocalDate birthday;
 
