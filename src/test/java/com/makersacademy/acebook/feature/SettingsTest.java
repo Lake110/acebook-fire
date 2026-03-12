@@ -28,21 +28,31 @@ public class SettingsTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         email = faker.name().username() + "@email.com";
 
-        // Sign up and log in
-        driver.get("http://localhost:8080/settings");
-        driver.findElement(By.linkText("Sign up")).click();
+        // Go to app - gets redirected to Auth0
+        driver.get("http://localhost:8081/settings");
+
+        // Wait for Auth0 signup link and click it
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("a[href*='signup'], a[href*='sign-up'], [data-action='sign up']")
+        ));
+        driver.findElement(
+                By.cssSelector("a[href*='signup'], a[href*='sign-up'], [data-action='sign up']")
+        ).click();
+
+        // Wait for signup form fields
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.name("email")));
         driver.findElement(By.name("email")).sendKeys(email);
-        driver.findElement(By.name("password")).sendKeys("P@55qw0rd");
-        driver.findElement(By.name("action")).click();
+        driver.findElement(By.name("password")).sendKeys("P@55qw0rd!");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
 
-        // Wait for Auth0 to complete and redirect back to the app
-        wait.until(ExpectedConditions.urlContains("localhost:8080"));
+        // Debug: print where we land after signup
+        wait.until(ExpectedConditions.urlContains("localhost:8081"));
+        System.out.println("Redirected to: " + driver.getCurrentUrl());
+        System.out.println("Page title: " + driver.getTitle());
 
-        // Navigate to settings
-        driver.get("http://localhost:8080/settings");
-
-        // Wait for settings page to fully load
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+        // Navigate to settings and wait for username input to confirm page loaded
+        driver.get("http://localhost:8081/posts");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
     }
 
     @AfterEach
@@ -77,7 +87,7 @@ public class SettingsTest {
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         wait.until(ExpectedConditions.urlContains("/settings"));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
 
         String bodyText = driver.findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains(newUsername));
@@ -92,10 +102,10 @@ public class SettingsTest {
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         wait.until(ExpectedConditions.urlContains("/settings"));
-        driver.get("http://localhost:8080/settings");
+        driver.get("http://localhost:8081/settings");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.name("username")));
 
         String bodyText = driver.findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains(newUsername));
     }
-
 }
