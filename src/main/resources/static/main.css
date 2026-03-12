@@ -107,13 +107,12 @@ nav a {
 /* ─── Post button ─────────────────────────── */
 
 .feed-post-btn-bar {
-    position: fixed;
-    bottom: 5rem;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
     z-index: 1000;
+    margin-bottom: 2rem;
 }
 
 .feed-post-btn-bar .mk-post {

@@ -87,4 +87,33 @@ public class UsersController {
         session.invalidate();
         return new RedirectView("/");
     }
+
+    @PostMapping("/users/settings/profile")
+    public RedirectView updateProfile(
+            @RequestParam(required = false) String bio,
+            @RequestParam(required = false) String birthday,
+            @RequestParam(required = false) String relationshipStatus) {
+
+        DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        String email = (String) principal.getAttributes().get("email");
+
+        userRepository.findUserByEmail(email).ifPresent(user -> {
+            user.setBio(bio);
+
+            if (birthday != null && !birthday.isEmpty()) {
+                user.setBirthday(java.time.LocalDate.parse(birthday));
+            }
+
+            user.setRelationshipStatus(relationshipStatus);
+
+            userRepository.save(user);
+        });
+
+        return new RedirectView("/settings");
+    }
+
 }
