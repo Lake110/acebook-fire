@@ -4,12 +4,17 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.SQLOutput;
 
 
 @Controller
@@ -49,5 +54,15 @@ public class ProfileController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("isOwnProfile", loggedInUser.getId().equals(user.getId()));
         return modelAndView;
+    }
+
+    @PostMapping("/profile/edit")
+    public String editProfile(@RequestParam(required = false) String bio,
+                              @RequestParam(required = false) String relationshipStatus) {
+        User user = getLoggedInUser();
+        user.setBio(bio);
+        user.setRelationshipStatus(relationshipStatus);
+        userRepository.save(user);
+        return "redirect:/profile/" + user.getId();
     }
 }

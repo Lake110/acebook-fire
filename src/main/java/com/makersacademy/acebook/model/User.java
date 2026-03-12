@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDate;
 
 import static java.lang.Boolean.TRUE;
 
@@ -21,6 +22,14 @@ public class User {
     private String username;
 
     private boolean enabled;
+
+    private String bio;
+    private LocalDate birthday;
+
+    @Column(name = "relationship_status")
+    private String relationshipStatus;
+
+
 
     public User() {
         this.enabled = TRUE;
