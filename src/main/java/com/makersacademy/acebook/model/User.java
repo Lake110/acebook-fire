@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 
-import java.time.LocalDate;
-
 import static java.lang.Boolean.TRUE;
 
 @Data
