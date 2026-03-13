@@ -38,40 +38,43 @@
     </div>
 
     <!-- Post cards -->
-    <div th:each="post : ${posts}" class="post-card" th:id="'post-' + ${post.id}"
-         th:attr="data-bs-toggle='modal', data-bs-target='#postModal-' + ${post.id}"
-         style="cursor:pointer;">
+    <div th:each="post : ${posts}"
+         class="post-card"
+         th:id="'post-' + ${post.id}">
 
-        <!-- author + date -->
-        <div class="post-meta d-flex align-items-center gap-2">
-            <!-- Avatar icon linking to the user's profile -->
-            <a th:href="@{/profile/{id}(id=${post.user?.id})}" onclick="event.stopPropagation()">
-                <img th:src="${post.user?.avatarUrl}"
-                     th:alt="${post.user?.username}"
-                     class="avatar-feed"/>
-            </a>
-            <div>
-                <a th:href="@{/profile/{id}(id=${post.user?.id})}"
-                   class="post-author"
-                   th:text="${post.user?.username}"
-                   onclick="event.stopPropagation()"></a>
-                <span th:text="
-                    'Posted on ' +
-                    ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
-                    + ' @ '
-                    + ${#temporals.format(post.createdAt, 'HH:mm')}">
-                </span>
-                <span th:if="${post.updatedAt}">(edited)</span>
+        <!-- Clickable area for modal only -->
+        <div th:attr="data-bs-toggle='modal', data-bs-target='#postModal-' + ${post.id}"
+             style="cursor:pointer;">
+
+            <!-- author + date -->
+            <div class="post-meta d-flex align-items-center gap-2">
+                <a th:href="@{/profile/{id}(id=${post.user?.id})}" onclick="event.stopPropagation()">
+                    <img th:src="${post.user?.avatarUrl}"
+                         th:alt="${post.user?.username}"
+                         class="avatar-feed"/>
+                </a>
+                <div>
+                    <a th:href="@{/profile/{id}(id=${post.user?.id})}"
+                       class="post-author"
+                       th:text="${post.user?.username}"
+                       onclick="event.stopPropagation()"></a>
+                    <span th:text="
+                        'Posted on ' +
+                        ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
+                        + ' @ '
+                        + ${#temporals.format(post.createdAt, 'HH:mm')}">
+                    </span>
+                    <span th:if="${post.updatedAt}">(edited)</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Content -->
-        <p class="post-content" th:text="${post.content}"></p>
+            <!-- Content -->
+            <p class="post-content" th:text="${post.content}"></p>
+        </div>
 
         <!-- Actions -->
         <div class="post-actions"
-             th:if="${#authentication.principal.attributes['email'] == post.user.email}"
-             onclick="event.stopPropagation()">
+             th:if="${#authentication.principal.attributes['email'] == post.user.email}">
 
             <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" class="m-0">
                 <button type="submit" class="btn btn-primary btn-sm px-3">Edit</button>
@@ -81,13 +84,82 @@
             </form>
         </div>
 
+        <!-- Like -->
+        <!-- Like -->
+        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0 mt-2">
+            <button type="submit"
+                    th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'liked'"
+                    class="like-btn">
+                <i class="fa-heart"
+                   th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
+                <span th:text="${@likeRepository.countByPost(post)}">0</span>
+                <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
+            </button>
+        </form>
+
+        <!-- Comments button -->
+        <div class="mt-3">
+            <button class="btn btn-outline-secondary btn-sm"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    th:data-bs-target="'#comments-' + ${post.id}"
+                    aria-expanded="false"
+                    th:aria-controls="'comments-' + ${post.id}">
+                <span th:text="${#lists.size(post.comments)} + (${#lists.size(post.comments) == 1} ? ' comment' : ' comments')">0 comments</span>
+            </button>
+        </div>
+
+        <!-- Comments section -->
+        <div class="collapse mt-3" th:id="'comments-' + ${post.id}">
+
+            <!-- Existing comments -->
+            <div th:if="${!#lists.isEmpty(post.comments)}">
+                <div th:each="comment : ${post.comments}" class="border rounded p-2 mb-2 bg-light">
+
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <strong th:text="${comment.user.username}"></strong>
+                            <small class="text-muted ms-2"
+                                   th:text="${#temporals.format(comment.createdAt, 'dd MMM yyyy HH:mm')}"></small>
+                        </div>
+
+                        <form th:if="${#authentication.principal.attributes['email'] == comment.user.email}"
+                              th:action="@{/comments/{id}/delete(id=${comment.id})}"
+                              method="post"
+                              class="m-0">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+
+                    <p class="mb-0 mt-2" th:text="${comment.content}"></p>
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div th:if="${#lists.isEmpty(post.comments)}" class="text-muted small mb-2">
+                No comments yet.
+            </div>
+
+            <!-- Add comment form -->
+            <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post" class="mt-2">
+                <div class="mb-2">
+                    <textarea name="content"
+                              class="form-control"
+                              rows="2"
+                              placeholder="Write a comment..."
+                              required></textarea>
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary">Add Comment</button>
+            </form>
+        </div>
+
         <!-- Post modal -->
         <div class="modal fade"
              th:id="'postModal-' + ${post.id}"
              tabindex="-1"
              aria-hidden="true">
 
-            <div class="modal-dialog modal-lg modal-dialog-centered" onclick="event.stopPropagation()">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
 
                     <div class="modal-header">
@@ -126,19 +198,6 @@
 
                 </div>
             </div>
-        </div>
-<!--        Like Button Section-->
-        <div>
-        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0 mt-2">
-            <button type="submit"
-                    th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'liked'"
-                    class="like-btn">
-                <i class="fa-heart"
-                   th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
-                <span th:text="${@likeRepository.countByPost(post)}">0</span>
-                <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
-            </button>
-        </form>
         </div>
     </div>
 
