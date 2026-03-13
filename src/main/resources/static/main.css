@@ -441,3 +441,45 @@ nav a {
     transform: scale(1.08);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
 }
+
+
+/* ─── Like button ─────────────────────────────────────── */
+
+.like-btn {
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #666;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.like-btn i {
+    font-size: 15px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
+}
+
+.like-btn.liked {
+    border-color: #E24B4A;
+    color: #E24B4A;
+}
+
+.like-btn.liked i {
+    color: #E24B4A;
+    transform: scale(1.25);
+}
+
+.like-btn:not(.liked):hover {
+    border-color: #E24B4A;
+    color: #E24B4A;
+}
+
+.like-btn:not(.liked):hover i {
+    color: #E24B4A;
+    transform: scale(1.1);
+}

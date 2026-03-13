@@ -74,7 +74,7 @@ public class UsersController {
             user.setUsername(username);
             userRepository.save(user);
         });
-        redirectAttributes.addFlashAttribute("message", "Submitted!");
+        redirectAttributes.addFlashAttribute("message", "Username Updated!");
         return new RedirectView("/settings");
     }
     @Transactional
@@ -119,7 +119,7 @@ public class UsersController {
 
             userRepository.save(user);
         });
-        redirectAttributes.addFlashAttribute("message2", "Submitted!");
+        redirectAttributes.addFlashAttribute("message2", "Profile Updated!");
         return new RedirectView("/settings");
     }
 
