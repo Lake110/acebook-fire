@@ -1,18 +1,40 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-<nav th:fragment="navbar">
-    <a href="/">Feed</a>
-    <a href="/profile">Profile</a>
+<nav th:fragment="navbar" class="navbar-main" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="navbar-inner">
 
-    <span sec:authorize="isAuthenticated()">
-        <a href="/settings">User Settings</a>
-    </span>
+        <a href="/" class="navbar-brand">Acebook</a>
 
-    <span class="logout" sec:authorize="isAuthenticated()">
-        <a href="/logout">Logout</a>
-    </span>
+        <div class="navbar-links">
+            <a href="/" class="nav-link">
+                <i class="fa-solid fa-house"></i> Feed
+            </a>
+            <a href="/profile" class="nav-link">
+                <i class="fa-solid fa-user"></i> Profile
+            </a>
+            <span sec:authorize="isAuthenticated()">
+                <a href="/settings" class="nav-link">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </a>
+            </span>
+        </div>
 
-    <span sec:authorize="!isAuthenticated()">
-        <a href="/login">Login</a>
-    </span>
+        <div class="navbar-actions">
+            <span sec:authorize="isAuthenticated()">
+
+                <!-- Avatar (display only) -->
+<img th:src="${currentUser.avatarUrl}"
+     th:alt="${currentUser.username}"
+     class="navbar-avatar">
+
+                <a href="/logout" class="nav-link nav-logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </a>
+
+            </span>
+
+            <span sec:authorize="!isAuthenticated()">
+                <a href="/login" class="btn btn-primary btn-sm px-3">Login</a>
+            </span>
+        </div>
+
+    </div>
 </nav>

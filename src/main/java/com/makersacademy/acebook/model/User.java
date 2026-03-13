@@ -31,8 +31,6 @@ public class User {
     @Column(name = "relationship_status")
     private String relationshipStatus;
 
-
-
     public User() {
         this.enabled = TRUE;
     }
@@ -44,7 +42,7 @@ public class User {
     }
 
     public String getAvatarUrl() {
-        return "https://api.dicebear.com/9.x/" + avatarStyle + "/svg?seed=" + this.username;
+        return "https://api.dicebear.com/9.x/" + avatarStyle + "/svg?seed=" + this.id;
     }
 
     public String getAvatarStyle() {

@@ -1,9 +1,12 @@
-/* ─── Root colour scheme ─────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   ROOT VARIABLES
+   ───────────────────────────────────────────────────────── */
 :root {
     --color-primary:        #7C3AED;
     --color-primary-hover:  #6D28D9;
     --color-primary-light:  #EDE9FE;
     --color-primary-text:   #ffffff;
+    --color-primary-rgb:    124, 58, 237;
 
     --color-bg:             #F3F0FF;
     --color-surface:        #ffffff;
@@ -20,11 +23,14 @@
 }
 
 
-/* ─── Base ─────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────── */
 
 body {
     background-color: var(--color-bg);
     font-family: 'Source Sans 3', sans-serif;
+    color: var(--color-text-primary);
 }
 
 nav {
@@ -37,53 +43,195 @@ nav a {
     text-decoration: none;
 }
 
-/* ─── Shared card style ─────────────────────────────────── */
+/* ─── Navbar ─────────────────────────────────────────────── */
 
-.card {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* ─── Feed page ─────────────────────────────────────────── */
-
-.feed-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2.5rem 1rem;
-}
-
-.new-post-bar {
+.navbar-main {
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.new-post-bar span {
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+}
+
+.navbar-brand:hover {
+    color: var(--color-primary-hover);
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.nav-link {
     font-size: 0.875rem;
     color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 4rem 1rem;
+.nav-link:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.nav-logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
+}
+
+.navbar-avatar-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.navbar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BOOTSTRAP OVERRIDES
+   ───────────────────────────────────────────────────────── */
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-primary-text);
+}
+
+.btn-secondary {
+    background-color: var(--color-border);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-text-muted);
+    border-color: var(--color-text-muted);
+    color: var(--color-primary-text);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+
+.btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+.btn-outline-secondary {
     color: var(--color-text-muted);
+    border-color: var(--color-border);
 }
 
-.empty-state i {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    display: block;
+.btn-outline-secondary:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
-.empty-state p {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+.btn-outline-danger {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    color: var(--color-primary-text);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.2);
+}
+
+.bg-light {
+    background-color: var(--color-primary-light) !important;
+}
+
+.modal-content {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+.modal-header {
+    border-bottom-color: var(--color-border);
+}
+
+.modal-footer {
+    border-top-color: var(--color-border);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   SHARED COMPONENTS
+   ───────────────────────────────────────────────────────── */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .post-card {
@@ -126,160 +274,6 @@ nav a {
     border-top: 1px solid var(--color-border);
 }
 
-/* ─── Post button ─────────────────────────── */
-
-.feed-post-btn-bar {
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
-    margin-bottom: 2rem;
-}
-
-.feed-post-btn-bar .mk-post {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 50px;
-    padding: 0.75rem 1.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.feed-post-btn-bar .mk-post:hover {
-    transform: translateY(0px);
-    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.55);
-}
-
-.feed-wrapper {
-    padding-bottom: 6rem;
-}
-
-/* ─── Settings page ─────────────────────────────────────── */
-
-.settings-card {
-    background-color: var(--color-surface);
-    padding: 2rem;
-}
-
-.settings-card h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-}
-
-.settings-card h5 {
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.settings-card p {
-    color: var(--color-text-secondary);
-    font-size: 0.95rem;
-}
-
-.settings-card .form-control {
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    font-size: 0.95rem;
-}
-
-.settings-card .form-control:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
-}
-
-.settings-card .btn-primary {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 8px;
-}
-
-.settings-card .btn-primary:hover {
-    background-color: var(--color-primary-hover);
-}
-
-.settings-card .btn-danger {
-    background-color: var(--color-danger);
-    border-radius: 8px;
-}
-
-.settings-card .btn-danger:hover {
-    background-color: var(--color-danger-hover);
-}
-
-/* ─── Posts page ─────────────────────────────────────────── */
-
-.posts-card {
-    background-color: var(--color-surface);
-}
-
-.posts-card h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-}
-
-.posts-card .form-control {
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    font-size: 0.95rem;
-    resize: vertical;
-}
-
-.posts-card .form-control:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
-}
-
-.posts-card .btn-primary {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 8px;
-}
-
-.posts-card .btn-primary:hover {
-    background-color: var(--color-primary-hover);
-}
-
-.posts-card .btn-outline-secondary {
-    border-radius: 8px;
-    color: var(--color-text-secondary);
-    border-color: var(--color-border);
-}
-
-.posts-card .btn-outline-secondary:hover {
-    background-color: var(--color-bg);
-    color: var(--color-text-primary);
-}
-
-/* ─── Legacy / unused (kept for reference) ──────────────── */
-
-.posts-main {
-    border-collapse: collapse;
-}
-
-.post-main {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    text-align: left;
-    margin-bottom: 0.5rem;
-}
-
-.posts {
-    height: 100vh;
-    overflow-y: scroll;
-}
-
-.post-cards {
-    max-width: 680px;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-/* Edit post textarea */
 .edit-textarea {
     border-radius: 8px;
     border: 1px solid var(--color-border);
@@ -291,100 +285,9 @@ nav a {
 
 .edit-textarea:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.2);
     outline: none;
 }
-
-/* ── Profile page ── */
-
-.cover-photo {
-    height: 220px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-    position: relative;
-}
-
-.profile-avatar-wrap {
-    position: relative;
-    display: inline-block;
-    margin-top: -60px;
-}
-
-.profile-avatar {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border: 4px solid var(--color-surface);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.profile-header-card {
-    border-radius: 0 0 12px 12px;
-    border-top: none;
-}
-
-.post-author {
-    font-weight: 600;
-    color: var(--color-text-secondary);
-}
-
-.post-meta {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    margin-bottom: 0.5rem;
-}
-
-.stat-box {
-    text-align: center;
-    padding: 0.5rem 1.5rem;
-    border-right: 1px solid var(--color-border);
-}
-
-.stat-box:last-child {
-    border-right: none;
-}
-
-.stat-number {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--color-text-secondary);
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.camera-overlay {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    background: var(--color-primary);
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 2px solid var(--color-surface);
-    font-size: 0.7rem;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.camera-overlay:hover {
-    background: var(--color-primary-hover);
-    transform: scale(1.1);
-}
-
-/* ─── Logout style ─────────────────────────────────── */
-
-.logout {
-    float: right;
-}
-
-/* ─── Avatar - Feed Icon ─────────────────────────────────── */
 
 .avatar-feed {
     width: 36px;
@@ -395,72 +298,13 @@ nav a {
     flex-shrink: 0;
 }
 
-/* ─── Avatar - Modal Grid ────────────────────────────────── */
-
-.avatar-modal-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    padding: 0.5rem;
+.logout {
+    float: right;
 }
 
-.avatar-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-}
-
-.avatar-option-img {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    border: 3px solid var(--color-border);
-    transition: border-color 0.2s ease, transform 0.2s ease;
-    object-fit: cover;
-}
-
-.avatar-option-img:hover {
-    border-color: var(--color-primary);
-    transform: scale(1.08);
-}
-
-.avatar-option-img.selected-avatar {
-    border-color: var(--color-primary);
-    transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
-}
-
-.avatar-option-label {
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    margin-top: 0.35rem;
-    text-align: center;
-    text-transform: capitalize;
-}
-
-/* ─── Avatar - Style Filter ──────────────────────────────── */
-
-.avatar-style-filter {
-    max-width: 250px;
-    margin-bottom: 1.25rem;
-}
-
-.avatar-radio {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.avatar-radio:checked + .avatar-option-img {
-    border-color: var(--color-primary);
-    transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
-}
-
-/* ─── Like button ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   LIKE BUTTON
+   ───────────────────────────────────────────────────────── */
 
 .like-btn {
     background: none;
@@ -500,4 +344,287 @@ nav a {
 .like-btn:not(.liked):hover i {
     color: var(--color-like);
     transform: scale(1.1);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   FEED PAGE
+   ───────────────────────────────────────────────────────── */
+
+.feed-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+    padding-bottom: 6rem;
+}
+
+.feed-post-btn-bar {
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    margin-bottom: 2rem;
+}
+
+.feed-post-btn-bar .mk-post {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feed-post-btn-bar .mk-post:hover {
+    box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.55);
+}
+
+.new-post-bar {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.new-post-bar span {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--color-text-muted);
+}
+
+.empty-state i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   POSTS PAGE
+   ───────────────────────────────────────────────────────── */
+
+.posts-card {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--color-surface);
+}
+
+.posts-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.posts-card .form-control {
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   SETTINGS PAGE
+   ───────────────────────────────────────────────────────── */
+
+.settings-card {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--color-surface);
+    padding: 2rem;
+}
+
+.settings-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.settings-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.settings-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.settings-card .form-control {
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-size: 0.95rem;
+}
+
+.settings-card .btn-danger {
+    background-color: var(--color-danger);
+    border-radius: 8px;
+}
+
+.settings-card .btn-danger:hover {
+    background-color: var(--color-danger-hover);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   PROFILE PAGE
+   ───────────────────────────────────────────────────────── */
+
+.cover-photo {
+    height: 220px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    position: relative;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-top: -60px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 4px solid var(--color-surface);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-header-card {
+    border-radius: 0 0 12px 12px;
+    border-top: none;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 0.5rem 1.5rem;
+    border-right: 1px solid var(--color-border);
+}
+
+.stat-box:last-child {
+    border-right: none;
+}
+
+.stat-box-clickable:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.stat-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.camera-overlay {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--color-surface);
+    font-size: 0.7rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.camera-overlay:hover {
+    background: var(--color-primary-hover);
+    transform: scale(1.1);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   AVATAR PICKER
+   ───────────────────────────────────────────────────────── */
+
+.avatar-modal-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.avatar-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar-option-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--color-border);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    object-fit: cover;
+}
+
+.avatar-option-img:hover {
+    border-color: var(--color-primary);
+    transform: scale(1.08);
+}
+
+.avatar-option-img.selected-avatar {
+    border-color: var(--color-primary);
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
+}
+
+.avatar-option-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 0.35rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.avatar-style-filter {
+    max-width: 250px;
+    margin-bottom: 1.25rem;
+}
+
+.avatar-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.avatar-radio:checked + .avatar-option-img {
+    border-color: var(--color-primary);
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
 }

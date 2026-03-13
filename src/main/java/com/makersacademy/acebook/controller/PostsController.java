@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.time.LocalDateTime;
 
 @Controller
-public class PostsController {
+public class PostsController extends BaseController {
 
     @Autowired
     PostRepository repository;

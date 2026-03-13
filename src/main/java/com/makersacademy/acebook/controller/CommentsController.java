@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CommentsController {
+public class CommentsController extends BaseController {
 
     @Autowired
     CommentRepository commentRepository;
