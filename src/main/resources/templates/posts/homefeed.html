@@ -135,7 +135,7 @@
                 <i class="fa-heart"
                    th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
                 <span th:text="${@likeRepository.countByPost(post)}">0</span>
-                <span th:text="${@likeRepository.countByPost(post) > 1} ? 'Likes' : 'Like'">Like</span>
+                <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
             </button>
         </form>
     </div>
