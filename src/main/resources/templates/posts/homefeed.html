@@ -38,7 +38,9 @@
     </div>
 
     <!-- Post cards -->
-    <div th:each="post : ${posts}" class="post-card">
+    <div th:each="post : ${posts}"
+         class="post-card"
+         th:id="'post-' + ${post.id}">
 
         <!-- Clickable area for modal only -->
         <div th:attr="data-bs-toggle='modal', data-bs-target='#postModal-' + ${post.id}"
