@@ -58,6 +58,7 @@
                        class="post-author"
                        th:text="${post.user?.username}"
                        onclick="event.stopPropagation()"></a>
+                    <span th:if="${post.user?.birthday != null and post.user?.isBirthday()}">🎉</span>
                     <span th:text="
                         'Posted on ' +
                         ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
@@ -119,6 +120,7 @@
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
                             <strong th:text="${comment.user.username}"></strong>
+                            <span th:if="${comment.user.birthday != null and comment.user.isBirthday()}">🎉</span>
                             <small class="text-muted ms-2"
                                    th:text="${#temporals.format(comment.createdAt, 'dd MMM yyyy HH:mm')}"></small>
                         </div>
