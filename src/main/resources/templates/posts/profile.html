@@ -14,7 +14,7 @@
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 
-<body class="bg-light">
+<body>
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
@@ -51,10 +51,8 @@
                 <div class="stat-number" th:text="${#lists.size(posts)}">0</div>
                 <div class="stat-label">Posts</div>
             </div>
-            <div class="stat-box" style="cursor: pointer;"
-                 data-bs-toggle="modal" data-bs-target="#friendsModal"
-                 onmouseover="this.style.color='#0d6efd'; this.style.textDecoration='underline';"
-                 onmouseout="this.style.color=''; this.style.textDecoration='';">
+            <div class="stat-box stat-box-clickable"
+                 data-bs-toggle="modal" data-bs-target="#friendsModal">
                 <div class="stat-number" th:text="${#lists.size(friends)}">0</div>
                 <div class="stat-label" th:text="${#lists.size(friends) == 1} ? 'Friend' : 'Friends'"></div>
             </div>
@@ -137,7 +135,7 @@
                             <a th:href="@{/profile/{id}(id=${friend.id})}">
                                 <img th:src="${friend.avatarUrl}" th:alt="${friend.username}" class="avatar-feed"/>
                             </a>
-                            <a th:href="@{/profile/{id}(id=${friend.id})}" th:text="${friend.username}" class="fw-bold text-decoration-none text-dark"></a>
+                            <a th:href="@{/profile/{id}(id=${friend.id})}" th:text="${friend.username}" class="fw-bold text-decoration-none"></a>
                             <a th:href="@{/profile/{id}(id=${friend.id})}" class="btn btn-outline-primary btn-sm ms-auto">
                                 View Profile
                             </a>

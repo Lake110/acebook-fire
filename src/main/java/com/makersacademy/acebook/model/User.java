@@ -31,8 +31,6 @@ public class User {
     @Column(name = "relationship_status")
     private String relationshipStatus;
 
-
-
     public User() {
         this.enabled = TRUE;
     }

@@ -24,7 +24,7 @@ import java.util.List;
 
 
 @Controller
-public class ProfileController {
+public class ProfileController extends BaseController {
 
     @Autowired
     UserRepository userRepository;

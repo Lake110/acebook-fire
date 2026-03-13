@@ -85,22 +85,22 @@
             </form>
         </div>
 
-        <!-- Like -->
-        <!-- Like -->
-        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0 mt-2">
-            <button type="submit"
-                    th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'liked'"
-                    class="like-btn">
-                <i class="fa-heart"
-                   th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
-                <span th:text="${@likeRepository.countByPost(post)}">0</span>
-                <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
-            </button>
-        </form>
+        <div class="d-flex align-items-center gap-2 mt-2">
 
-        <!-- Comments button -->
-        <div class="mt-3">
-            <button class="btn btn-outline-secondary btn-sm"
+            <!-- Like -->
+            <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0">
+                <button type="submit"
+                        th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'liked'"
+                        class="like-btn btn-sm">
+                    <i class="fa-heart"
+                       th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
+                    <span th:text="${@likeRepository.countByPost(post)}">0</span>
+                    <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
+                </button>
+            </form>
+
+            <!-- Comments button -->
+            <button class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center"
                     type="button"
                     data-bs-toggle="collapse"
                     th:data-bs-target="'#comments-' + ${post.id}"
@@ -108,8 +108,8 @@
                     th:aria-controls="'comments-' + ${post.id}">
                 <span th:text="${#lists.size(post.comments)} + (${#lists.size(post.comments) == 1} ? ' comment' : ' comments')">0 comments</span>
             </button>
-        </div>
 
+        </div>
         <!-- Comments section -->
         <div class="collapse mt-3" th:id="'comments-' + ${post.id}">
 

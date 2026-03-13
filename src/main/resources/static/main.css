@@ -1,13 +1,41 @@
-/* ─── Base ─────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   ROOT VARIABLES
+   ───────────────────────────────────────────────────────── */
+:root {
+    --color-primary:        #7C3AED;
+    --color-primary-hover:  #6D28D9;
+    --color-primary-light:  #EDE9FE;
+    --color-primary-text:   #ffffff;
+    --color-primary-rgb:    124, 58, 237;
+
+    --color-bg:             #F3F0FF;
+    --color-surface:        #ffffff;
+    --color-border:         #DDD6FE;
+
+    --color-text-primary:   #1E1B4B;
+    --color-text-secondary: #3730A3;
+    --color-text-muted:     #7C7AAA;
+
+    --color-danger:         #ef4444;
+    --color-danger-hover:   #dc2626;
+
+    --color-like:           #E24B4A;
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────────────────── */
 
 body {
-    background-color: #f0f2f5;
+    background-color: var(--color-bg);
     font-family: 'Source Sans 3', sans-serif;
+    color: var(--color-text-primary);
 }
 
 nav {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-border);
 }
 
 nav a {
@@ -15,7 +43,190 @@ nav a {
     text-decoration: none;
 }
 
-/* ─── Shared card style ─────────────────────────────────── */
+/* ─── Navbar ─────────────────────────────────────────────── */
+
+.navbar-main {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+}
+
+.navbar-brand:hover {
+    color: var(--color-primary-hover);
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.nav-link {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.nav-logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
+}
+
+.navbar-avatar-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.navbar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BOOTSTRAP OVERRIDES
+   ───────────────────────────────────────────────────────── */
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-primary-text);
+}
+
+.btn-secondary {
+    background-color: var(--color-border);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-text-muted);
+    border-color: var(--color-text-muted);
+    color: var(--color-primary-text);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+    background-color: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
+}
+
+.btn-outline-primary {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+.btn-outline-secondary {
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-outline-danger {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    color: var(--color-primary-text);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.2);
+}
+
+.bg-light {
+    background-color: var(--color-primary-light) !important;
+}
+
+.modal-content {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+.modal-header {
+    border-bottom-color: var(--color-border);
+}
+
+.modal-footer {
+    border-top-color: var(--color-border);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   SHARED COMPONENTS
+   ───────────────────────────────────────────────────────── */
 
 .card {
     border: none;
@@ -23,17 +234,157 @@ nav a {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ─── Feed page ─────────────────────────────────────────── */
+.post-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.post-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.post-author {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-right: 0.5rem;
+}
+
+.post-content {
+    font-size: 0.975rem;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    margin-bottom: 1.25rem;
+}
+
+.post-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.edit-textarea {
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    font-size: 0.975rem;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    resize: vertical;
+}
+
+.edit-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.2);
+    outline: none;
+}
+
+.avatar-feed {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.logout {
+    float: right;
+}
+
+/* ─────────────────────────────────────────────────────────
+   LIKE BUTTON
+   ───────────────────────────────────────────────────────── */
+
+.like-btn {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    transition: border-color 0.2s, color 0.2s;
+    padding: 4px 8px;
+    line-height: 1.5;
+}
+
+.like-btn i {
+    font-size: 13px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
+}
+
+.like-btn.liked {
+    border-color: var(--color-like);
+    color: var(--color-like);
+}
+
+.like-btn.liked i {
+    color: var(--color-like);
+    transform: scale(1.25);
+}
+
+.like-btn:not(.liked):hover {
+    border-color: var(--color-like);
+    color: var(--color-like);
+}
+
+.like-btn:not(.liked):hover i {
+    color: var(--color-like);
+    transform: scale(1.1);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   FEED PAGE
+   ───────────────────────────────────────────────────────── */
 
 .feed-wrapper {
     max-width: 600px;
     margin: 0 auto;
     padding: 2.5rem 1rem;
+    padding-bottom: 6rem;
+}
+
+.feed-post-btn-bar {
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    margin-bottom: 2rem;
+}
+
+.feed-post-btn-bar .mk-post {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feed-post-btn-bar .mk-post:hover {
+    box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.55);
 }
 
 .new-post-bar {
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 1rem 1.5rem;
     margin-bottom: 1.5rem;
@@ -44,13 +395,13 @@ nav a {
 
 .new-post-bar span {
     font-size: 0.875rem;
-    color: #999;
+    color: var(--color-text-muted);
 }
 
 .empty-state {
     text-align: center;
     padding: 4rem 1rem;
-    color: #999;
+    color: var(--color-text-muted);
 }
 
 .empty-state i {
@@ -64,88 +415,46 @@ nav a {
     margin-bottom: 1.5rem;
 }
 
-.post-card {
-    background: #ffffff;
-    border: 1px solid #e8e8e8;
+
+/* ─────────────────────────────────────────────────────────
+   POSTS PAGE
+   ───────────────────────────────────────────────────────── */
+
+.posts-card {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--color-surface);
+}
+
+.posts-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.posts-card .form-control {
     border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    transition: box-shadow 0.2s ease;
+    border: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    resize: vertical;
 }
 
-.post-card:hover {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
 
-.post-meta {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 0.75rem;
-}
-
-.post-author {
-    font-weight: 600;
-    color: #444;
-    margin-right: 0.5rem;
-}
-
-.post-content {
-    font-size: 0.975rem;
-    line-height: 1.65;
-    color: #2a2a2a;
-    margin-bottom: 1.25rem;
-}
-
-.post-actions {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-    padding-top: 0.75rem;
-    border-top: 1px solid #f0f0f0;
-}
-
-/* ─── Post button ─────────────────────────── */
-
-.feed-post-btn-bar {
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
-    margin-bottom: 2rem;
-}
-
-.feed-post-btn-bar .mk-post {
-    background-color: #1877f2;
-    border: none;
-    border-radius: 50px;
-    padding: 0.75rem 1.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    box-shadow: 0 4px 16px rgba(24, 119, 242, 0.45);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.feed-post-btn-bar .mk-post:hover {
-    transform: translateY(0px);
-    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.55);
-}
-
-.feed-wrapper {
-    padding-bottom: 6rem;
-}
-
-/* ─── Settings page ─────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   SETTINGS PAGE
+   ───────────────────────────────────────────────────────── */
 
 .settings-card {
-    background-color: #ffffff;
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--color-surface);
     padding: 2rem;
 }
 
 .settings-card h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: var(--color-text-primary);
 }
 
 .settings-card h5 {
@@ -154,125 +463,33 @@ nav a {
 }
 
 .settings-card p {
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
 }
 
 .settings-card .form-control {
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     font-size: 0.95rem;
-}
-
-.settings-card .form-control:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
-}
-
-.settings-card .btn-primary {
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 8px;
-}
-
-.settings-card .btn-primary:hover {
-    background-color: #4338ca;
 }
 
 .settings-card .btn-danger {
+    background-color: var(--color-danger);
     border-radius: 8px;
 }
 
-/* ─── Posts page ─────────────────────────────────────────── */
-
-.posts-card {
-    background-color: #ffffff;
+.settings-card .btn-danger:hover {
+    background-color: var(--color-danger-hover);
 }
 
-.posts-card h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a2e;
-}
 
-.posts-card .form-control {
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 0.95rem;
-    resize: vertical;
-}
-
-.posts-card .form-control:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
-}
-
-.posts-card .btn-primary {
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 8px;
-}
-
-.posts-card .btn-primary:hover {
-    background-color: #4338ca;
-}
-
-.posts-card .btn-outline-secondary {
-    border-radius: 8px;
-    color: #555;
-    border-color: #ccc;
-}
-
-.posts-card .btn-outline-secondary:hover {
-    background-color: #f0f2f5;
-    color: #333;
-}
-
-/* ─── Legacy / unused (kept for reference) ──────────────── */
-
-.posts-main {
-    border-collapse: collapse;
-}
-
-.post-main {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    text-align: left;
-    margin-bottom: 0.5rem;
-}
-
-.posts {
-    height: 100vh;
-    overflow-y: scroll;
-}
-
-.post-cards {
-    max-width: 680px;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-/* Edit post textarea */
-.edit-textarea {
-    border-radius: 8px;
-    border: 1px solid #e8e8e8;
-    font-size: 0.975rem;
-    line-height: 1.65;
-    color: #2a2a2a;
-    resize: vertical;
-}
-
-.edit-textarea:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
-    outline: none;
-}
-
-/* ── Profile page ── */
+/* ─────────────────────────────────────────────────────────
+   PROFILE PAGE
+   ───────────────────────────────────────────────────────── */
 
 .cover-photo {
     height: 220px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
     position: relative;
 }
 
@@ -286,8 +503,8 @@ nav a {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: 4px solid var(--color-surface);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .profile-header-card {
@@ -295,45 +512,31 @@ nav a {
     border-top: none;
 }
 
-.post-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1rem;
-    background: white;
-    text-align: left;
-}
-
-.post-author {
-    font-weight: 600;
-    color: #333;
-}
-
-.post-meta {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 0.5rem;
-}
-
 .stat-box {
     text-align: center;
     padding: 0.5rem 1.5rem;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--color-border);
 }
 
 .stat-box:last-child {
     border-right: none;
 }
 
+.stat-box-clickable:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .stat-number {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #333;
+    color: var(--color-text-secondary);
 }
 
 .stat-label {
     font-size: 0.75rem;
-    color: #888;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -342,7 +545,7 @@ nav a {
     position: absolute;
     bottom: 4px;
     right: 4px;
-    background: #667eea;
+    background: var(--color-primary);
     border-radius: 50%;
     width: 28px;
     height: 28px;
@@ -350,34 +553,20 @@ nav a {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 2px solid white;
+    border: 2px solid var(--color-surface);
     font-size: 0.7rem;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .camera-overlay:hover {
-    background: #764ba2;
+    background: var(--color-primary-hover);
     transform: scale(1.1);
 }
 
-/* ─── logout style ─────────────────────────────────── */
 
-.logout {
-    float: right;
-}
-
-/* ─── Avatar - Feed Icon ─────────────────────────────────── */
-
-.avatar-feed {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid #dee2e6;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-/* ─── Avatar - Modal Grid ────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────
+   AVATAR PICKER
+   ───────────────────────────────────────────────────────── */
 
 .avatar-modal-grid {
     display: flex;
@@ -398,31 +587,29 @@ nav a {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 3px solid #dee2e6;
+    border: 3px solid var(--color-border);
     transition: border-color 0.2s ease, transform 0.2s ease;
     object-fit: cover;
 }
 
 .avatar-option-img:hover {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
 }
 
 .avatar-option-img.selected-avatar {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
 }
 
 .avatar-option-label {
     font-size: 0.7rem;
-    color: #6c757d;
+    color: var(--color-text-muted);
     margin-top: 0.35rem;
     text-align: center;
     text-transform: capitalize;
 }
-
-/* ─── Avatar - Style Filter ──────────────────────────────── */
 
 .avatar-style-filter {
     max-width: 250px;
@@ -437,49 +624,7 @@ nav a {
 }
 
 .avatar-radio:checked + .avatar-option-img {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
-}
-
-
-/* ─── Like button ─────────────────────────────────────── */
-
-.like-btn {
-    background: none;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 5px 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #666;
-    transition: border-color 0.2s, color 0.2s;
-}
-
-.like-btn i {
-    font-size: 15px;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
-}
-
-.like-btn.liked {
-    border-color: #E24B4A;
-    color: #E24B4A;
-}
-
-.like-btn.liked i {
-    color: #E24B4A;
-    transform: scale(1.25);
-}
-
-.like-btn:not(.liked):hover {
-    border-color: #E24B4A;
-    color: #E24B4A;
-}
-
-.like-btn:not(.liked):hover i {
-    color: #E24B4A;
-    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.25);
 }

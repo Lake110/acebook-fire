@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.makersacademy.acebook.repository.CommentRepository;
 
 @Controller
-public class UsersController {
+public class UsersController extends BaseController {
     @Autowired
     UserRepository userRepository;
 
@@ -77,6 +77,7 @@ public class UsersController {
         redirectAttributes.addFlashAttribute("message", "Username Updated!");
         return new RedirectView("/settings");
     }
+
     @Transactional
     @PostMapping("/users/settings/delete")
     public RedirectView deleteAccount(HttpSession session) {
