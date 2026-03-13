@@ -82,6 +82,14 @@ public class ProfileController extends BaseController {
 
         modelAndView.addObject("friends", friends);
 
+        boolean isBirthday = false;
+        if (user.getBirthday() != null) {
+            java.time.LocalDate today = java.time.LocalDate.now();
+            isBirthday = user.getBirthday().getMonthValue() == today.getMonthValue()
+                    && user.getBirthday().getDayOfMonth() == today.getDayOfMonth();
+        }
+        modelAndView.addObject("isBirthday", isBirthday);
+
         return modelAndView;
     }
 

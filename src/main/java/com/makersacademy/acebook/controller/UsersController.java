@@ -57,7 +57,7 @@ public class UsersController extends BaseController {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        ModelAndView modelAndView = new ModelAndView("/users/settings");
+        ModelAndView modelAndView = new ModelAndView("users/settings");
         modelAndView.addObject("user", user);
         return modelAndView;
     }

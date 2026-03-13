@@ -52,4 +52,12 @@ public class User {
     public void setAvatarStyle(String avatarStyle) {
         this.avatarStyle = avatarStyle;
     }
+
+    public boolean isBirthday() {
+        if (birthday == null) return false;
+        java.time.LocalDate today = java.time.LocalDate.now();
+        return birthday.getMonthValue() == today.getMonthValue()
+                && birthday.getDayOfMonth() == today.getDayOfMonth();
+    }
+
 }
