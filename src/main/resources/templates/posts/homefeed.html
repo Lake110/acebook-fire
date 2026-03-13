@@ -85,13 +85,16 @@
         </div>
 
         <!-- Like -->
-        <form th:action="@{/posts/{id}/like(id=${post.id})}"
-              method="post"
-              class="m-0">
-            <button type="submit" class="btn btn-primary btn-sm px-3">
-                <i class="fa-regular fa-heart"></i> Like
+        <!-- Like -->
+        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0 mt-2">
+            <button type="submit"
+                    th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'liked'"
+                    class="like-btn">
+                <i class="fa-heart"
+                   th:classappend="${@likeRepository.existsByUserEmailAndPost(#authentication.principal.attributes['email'], post)} ? 'fa-solid' : 'fa-regular'"></i>
+                <span th:text="${@likeRepository.countByPost(post)}">0</span>
+                <span th:text="${@likeRepository.countByPost(post) == 1} ? 'Like' : 'Likes'">Likes</span>
             </button>
-            <span th:text="${@likeRepository.countByPost(post)} + (${ @likeRepository.countByPost(post) == 1 } ? ' like' : ' likes')">0 likes</span>
         </form>
 
         <!-- Comments button -->
