@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -24,6 +26,10 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("createdAt ASC")
+    private List<Comment> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

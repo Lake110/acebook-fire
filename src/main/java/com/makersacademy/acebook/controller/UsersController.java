@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import com.makersacademy.acebook.repository.CommentRepository;
 
 @Controller
 public class UsersController {
@@ -21,6 +22,9 @@ public class UsersController {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping("/users/after-login")
     public RedirectView afterLogin() {
@@ -81,6 +85,7 @@ public class UsersController {
         String email = (String) principal.getAttributes().get("email");
 
         userRepository.findUserByEmail(email).ifPresent(user -> {
+            commentRepository.deleteAllByUser(user);
             postRepository.deleteAllByUser(user);
             userRepository.delete(user);
         });
