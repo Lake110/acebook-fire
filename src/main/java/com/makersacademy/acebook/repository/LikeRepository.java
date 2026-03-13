@@ -18,4 +18,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     // Count no. likes
     long countByPost(Post post);
+
+    boolean existsByUserEmailAndPost(String email, Post post);
 }
