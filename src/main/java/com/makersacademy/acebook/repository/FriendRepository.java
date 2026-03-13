@@ -4,6 +4,7 @@ import com.makersacademy.acebook.model.Friend;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
     boolean existsByUserIdAndFriendId(Long userId, Long friendId);
@@ -18,4 +19,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     WHERE f.userId = :userId OR f.friendId = :userId
 """)
     long countFriends(@Param("userId") Long userId);
+
+    @Query("SELECT f FROM Friend f WHERE f.userId = :userId OR f.friendId = :userId")
+    List<Friend> findAllByUserId(@Param("userId") Long userId);
+
 }

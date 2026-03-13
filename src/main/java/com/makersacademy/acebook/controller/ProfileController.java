@@ -1,11 +1,13 @@
 package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.AvatarOptions;
+import com.makersacademy.acebook.model.Friend;
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.FriendRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.SQLOutput;
+import java.util.List;
+
 
 @Controller
 public class ProfileController {
@@ -64,6 +72,16 @@ public class ProfileController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("isOwnProfile", loggedInUser.getId().equals(user.getId()));
         modelAndView.addObject("avatarStyles", AvatarOptions.STYLES);
+
+        List<Friend> friendships = friendRepository.findAllByUserId(id);
+        List<User> friends = friendships.stream()
+                .map(f -> f.getUserId().equals(id) ? f.getFriendId() : f.getUserId())
+                .map(friendId -> userRepository.findById(friendId).orElse(null))
+                .filter(u -> u != null)
+                .collect(java.util.stream.Collectors.toList());
+
+        modelAndView.addObject("friends", friends);
+
         return modelAndView;
     }
 
