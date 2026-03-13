@@ -1,36 +1,35 @@
 /* ─── Root colour scheme ─────────────────────────────── */
-
 :root {
---color-primary:
---color-primary-hover:
---color-primary-light:
---color-primary-text:
+    --color-primary:        #7C3AED;
+    --color-primary-hover:  #6D28D9;
+    --color-primary-light:  #EDE9FE;
+    --color-primary-text:   #ffffff;
 
--color-bg:
---color-surface:
---color-border:
+    --color-bg:             #F3F0FF;
+    --color-surface:        #ffffff;
+    --color-border:         #DDD6FE;
 
---color-text-primary:
---color-text-secondary:
---color-text-muted:
+    --color-text-primary:   #1E1B4B;
+    --color-text-secondary: #3730A3;
+    --color-text-muted:     #7C7AAA;
 
---color-danger:
---color-danger-hover:
+    --color-danger:         #ef4444;
+    --color-danger-hover:   #dc2626;
 
---color-like:
+    --color-like:           #E24B4A;
 }
 
 
 /* ─── Base ─────────────────────────────────────────────── */
 
 body {
-    background-color: #f0f2f5;
+    background-color: var(--color-bg);
     font-family: 'Source Sans 3', sans-serif;
 }
 
 nav {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-border);
 }
 
 nav a {
@@ -55,8 +54,8 @@ nav a {
 }
 
 .new-post-bar {
-    background: #fff;
-    border: 1px solid #e8e8e8;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 1rem 1.5rem;
     margin-bottom: 1.5rem;
@@ -67,13 +66,13 @@ nav a {
 
 .new-post-bar span {
     font-size: 0.875rem;
-    color: #999;
+    color: var(--color-text-muted);
 }
 
 .empty-state {
     text-align: center;
     padding: 4rem 1rem;
-    color: #999;
+    color: var(--color-text-muted);
 }
 
 .empty-state i {
@@ -88,8 +87,8 @@ nav a {
 }
 
 .post-card {
-    background: #ffffff;
-    border: 1px solid #e8e8e8;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1rem;
@@ -102,20 +101,20 @@ nav a {
 
 .post-meta {
     font-size: 0.8rem;
-    color: #888;
+    color: var(--color-text-muted);
     margin-bottom: 0.75rem;
 }
 
 .post-author {
     font-weight: 600;
-    color: #444;
+    color: var(--color-text-secondary);
     margin-right: 0.5rem;
 }
 
 .post-content {
     font-size: 0.975rem;
     line-height: 1.65;
-    color: #2a2a2a;
+    color: var(--color-text-primary);
     margin-bottom: 1.25rem;
 }
 
@@ -124,7 +123,7 @@ nav a {
     gap: 0.5rem;
     justify-content: flex-end;
     padding-top: 0.75rem;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--color-border);
 }
 
 /* ─── Post button ─────────────────────────── */
@@ -139,19 +138,19 @@ nav a {
 }
 
 .feed-post-btn-bar .mk-post {
-    background-color: #1877f2;
+    background-color: var(--color-primary);
     border: none;
     border-radius: 50px;
     padding: 0.75rem 1.75rem;
     font-size: 1rem;
     font-weight: 600;
-    box-shadow: 0 4px 16px rgba(24, 119, 242, 0.45);
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .feed-post-btn-bar .mk-post:hover {
     transform: translateY(0px);
-    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.55);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.55);
 }
 
 .feed-wrapper {
@@ -161,14 +160,14 @@ nav a {
 /* ─── Settings page ─────────────────────────────────────── */
 
 .settings-card {
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     padding: 2rem;
 }
 
 .settings-card h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: var(--color-text-primary);
 }
 
 .settings-card h5 {
@@ -177,78 +176,83 @@ nav a {
 }
 
 .settings-card p {
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
 }
 
 .settings-card .form-control {
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     font-size: 0.95rem;
 }
 
 .settings-card .form-control:focus {
-    border-color: #4f46e5;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
 }
 
 .settings-card .btn-primary {
-    background-color: #4f46e5;
+    background-color: var(--color-primary);
     border: none;
     border-radius: 8px;
 }
 
 .settings-card .btn-primary:hover {
-    background-color: #4338ca;
+    background-color: var(--color-primary-hover);
 }
 
 .settings-card .btn-danger {
+    background-color: var(--color-danger);
     border-radius: 8px;
+}
+
+.settings-card .btn-danger:hover {
+    background-color: var(--color-danger-hover);
 }
 
 /* ─── Posts page ─────────────────────────────────────────── */
 
 .posts-card {
-    background-color: #ffffff;
+    background-color: var(--color-surface);
 }
 
 .posts-card h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: var(--color-text-primary);
 }
 
 .posts-card .form-control {
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     font-size: 0.95rem;
     resize: vertical;
 }
 
 .posts-card .form-control:focus {
-    border-color: #4f46e5;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
 }
 
 .posts-card .btn-primary {
-    background-color: #4f46e5;
+    background-color: var(--color-primary);
     border: none;
     border-radius: 8px;
 }
 
 .posts-card .btn-primary:hover {
-    background-color: #4338ca;
+    background-color: var(--color-primary-hover);
 }
 
 .posts-card .btn-outline-secondary {
     border-radius: 8px;
-    color: #555;
-    border-color: #ccc;
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
 }
 
 .posts-card .btn-outline-secondary:hover {
-    background-color: #f0f2f5;
-    color: #333;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
 }
 
 /* ─── Legacy / unused (kept for reference) ──────────────── */
@@ -278,15 +282,15 @@ nav a {
 /* Edit post textarea */
 .edit-textarea {
     border-radius: 8px;
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--color-border);
     font-size: 0.975rem;
     line-height: 1.65;
-    color: #2a2a2a;
+    color: var(--color-text-primary);
     resize: vertical;
 }
 
 .edit-textarea:focus {
-    border-color: #4f46e5;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2);
     outline: none;
 }
@@ -295,7 +299,7 @@ nav a {
 
 .cover-photo {
     height: 220px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
     position: relative;
 }
 
@@ -309,7 +313,7 @@ nav a {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border: 4px solid white;
+    border: 4px solid var(--color-surface);
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
@@ -318,30 +322,21 @@ nav a {
     border-top: none;
 }
 
-.post-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1rem;
-    background: white;
-    text-align: left;
-}
-
 .post-author {
     font-weight: 600;
-    color: #333;
+    color: var(--color-text-secondary);
 }
 
 .post-meta {
     font-size: 0.85rem;
-    color: #888;
+    color: var(--color-text-muted);
     margin-bottom: 0.5rem;
 }
 
 .stat-box {
     text-align: center;
     padding: 0.5rem 1.5rem;
-    border-right: 1px solid #eee;
+    border-right: 1px solid var(--color-border);
 }
 
 .stat-box:last-child {
@@ -351,12 +346,12 @@ nav a {
 .stat-number {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #333;
+    color: var(--color-text-secondary);
 }
 
 .stat-label {
     font-size: 0.75rem;
-    color: #888;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -365,7 +360,7 @@ nav a {
     position: absolute;
     bottom: 4px;
     right: 4px;
-    background: #667eea;
+    background: var(--color-primary);
     border-radius: 50%;
     width: 28px;
     height: 28px;
@@ -373,17 +368,17 @@ nav a {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 2px solid white;
+    border: 2px solid var(--color-surface);
     font-size: 0.7rem;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .camera-overlay:hover {
-    background: #764ba2;
+    background: var(--color-primary-hover);
     transform: scale(1.1);
 }
 
-/* ─── logout style ─────────────────────────────────── */
+/* ─── Logout style ─────────────────────────────────── */
 
 .logout {
     float: right;
@@ -395,7 +390,7 @@ nav a {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 2px solid #dee2e6;
+    border: 2px solid var(--color-border);
     object-fit: cover;
     flex-shrink: 0;
 }
@@ -421,25 +416,25 @@ nav a {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 3px solid #dee2e6;
+    border: 3px solid var(--color-border);
     transition: border-color 0.2s ease, transform 0.2s ease;
     object-fit: cover;
 }
 
 .avatar-option-img:hover {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
 }
 
 .avatar-option-img.selected-avatar {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
 }
 
 .avatar-option-label {
     font-size: 0.7rem;
-    color: #6c757d;
+    color: var(--color-text-muted);
     margin-top: 0.35rem;
     text-align: center;
     text-transform: capitalize;
@@ -460,23 +455,23 @@ nav a {
 }
 
 .avatar-radio:checked + .avatar-option-img {
-    border-color: #667eea;
+    border-color: var(--color-primary);
     transform: scale(1.08);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
 }
 
-
 /* ─── Like button ─────────────────────────────────────── */
+
 .like-btn {
     background: none;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: #666;
+    color: var(--color-text-muted);
     transition: border-color 0.2s, color 0.2s;
     padding: 4px 8px;
     line-height: 1.5;
@@ -488,21 +483,21 @@ nav a {
 }
 
 .like-btn.liked {
-    border-color: #E24B4A;
-    color: #E24B4A;
+    border-color: var(--color-like);
+    color: var(--color-like);
 }
 
 .like-btn.liked i {
-    color: #E24B4A;
+    color: var(--color-like);
     transform: scale(1.25);
 }
 
 .like-btn:not(.liked):hover {
-    border-color: #E24B4A;
-    color: #E24B4A;
+    border-color: var(--color-like);
+    color: var(--color-like);
 }
 
 .like-btn:not(.liked):hover i {
-    color: #E24B4A;
+    color: var(--color-like);
     transform: scale(1.1);
 }
