@@ -8,9 +8,10 @@
     --color-primary-text:   #ffffff;
     --color-primary-rgb:    124, 58, 237;
 
-    --color-bg:             #F3F0FF;
-    --color-surface:        #ffffff;
-    --color-border:         #DDD6FE;
+    --color-bg:      #F3F0FF;
+    --color-bg-2:    #E9E4FF;
+    --color-surface: #ffffff;
+    --color-border:  #DDD6FE;
 
     --color-text-primary:   #1E1B4B;
     --color-text-secondary: #3730A3;
@@ -447,7 +448,7 @@ nav a {
 .settings-card {
     max-width: 600px;
     width: 100%;
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-2);
     padding: 2rem;
 }
 
