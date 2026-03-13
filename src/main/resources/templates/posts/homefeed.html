@@ -15,7 +15,6 @@
 <div id="top"></div>
 <div th:replace="fragments/navbar :: navbar"></div>
 
-
 <div class="feed-wrapper">
 
     <!-- Title card -->
@@ -38,12 +37,14 @@
     </div>
 
     <!-- Post cards -->
-    <div th:each="post : ${posts}" class="post-card">
+    <div th:each="post : ${posts}"
+         class="post-card"
+         th:attr="data-bs-toggle='modal', data-bs-target='#postModal-' + ${post.id}"
+         style="cursor:pointer;">
 
         <!-- author + date -->
         <div class="post-meta d-flex align-items-center gap-2">
-            <!-- Avatar icon linking to the user's profile -->
-            <a th:href="@{/profile/{id}(id=${post.user?.id})}">
+            <a th:href="@{/profile/{id}(id=${post.user?.id})}" onclick="event.stopPropagation()">
                 <img th:src="${post.user?.avatarUrl}"
                      th:alt="${post.user?.username}"
                      class="avatar-feed"/>
@@ -51,7 +52,8 @@
             <div>
                 <a th:href="@{/profile/{id}(id=${post.user?.id})}"
                    class="post-author"
-                   th:text="${post.user?.username}"></a>
+                   th:text="${post.user?.username}"
+                   onclick="event.stopPropagation()"></a>
                 <span th:text="
                     'Posted on ' +
                     ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
@@ -66,7 +68,9 @@
         <p class="post-content" th:text="${post.content}"></p>
 
         <!-- Actions -->
-        <div class="post-actions" th:if="${#authentication.principal.attributes['email'] == post.user.email}">
+        <div class="post-actions"
+             th:if="${#authentication.principal.attributes['email'] == post.user.email}"
+             onclick="event.stopPropagation()">
 
             <form th:action="@{/posts/{id}/edit(id=${post.id})}" method="get" class="m-0">
                 <button type="submit" class="btn btn-primary btn-sm px-3">Edit</button>
@@ -75,12 +79,67 @@
                 <button type="submit" class="btn btn-danger btn-sm px-3">Delete</button>
             </form>
         </div>
-        <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" class="m-0">
-            <button type="submit" class="btn btn-primary btn-sm px-3"><i class="fa-regular fa-heart"></i> Like</button>
+
+        <!-- Like -->
+        <form th:action="@{/posts/{id}/like(id=${post.id})}"
+              method="post"
+              class="m-0"
+              onclick="event.stopPropagation()">
+            <button type="submit" class="btn btn-primary btn-sm px-3">
+                <i class="fa-regular fa-heart"></i> Like
+            </button>
             <span th:text="${@likeRepository.countByPost(post)} + ' likes'">0</span>
         </form>
+
+        <!-- Post modal -->
+        <div class="modal fade"
+             th:id="'postModal-' + ${post.id}"
+             tabindex="-1"
+             aria-hidden="true">
+
+            <div class="modal-dialog modal-lg modal-dialog-centered" onclick="event.stopPropagation()">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:text="${post.user?.username} + '\'s post'">Post</h5>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="post-meta d-flex align-items-center gap-2 mb-3">
+                            <a th:href="@{/profile/{id}(id=${post.user?.id})}">
+                                <img th:src="${post.user?.avatarUrl}"
+                                     th:alt="${post.user?.username}"
+                                     class="avatar-feed"/>
+                            </a>
+                            <div>
+                                <a th:href="@{/profile/{id}(id=${post.user?.id})}"
+                                   class="post-author"
+                                   th:text="${post.user?.username}"></a>
+                                <span th:text="
+                                    'Posted on ' +
+                                    ${#temporals.format(post.createdAt, 'dd MMM yyyy')}
+                                    + ' @ '
+                                    + ${#temporals.format(post.createdAt, 'HH:mm')}">
+                                </span>
+                                <span th:if="${post.updatedAt}">(edited)</span>
+                            </div>
+                        </div>
+
+                        <p class="post-content" th:text="${post.content}"></p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Post button -->
+
+    <!-- Back to top -->
     <div class="feed-post-btn-bar justify-content-center">
         <a href="#top" class="btn btn-primary px-5">Back to Top</a>
     </div>
