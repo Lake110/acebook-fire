@@ -73,7 +73,7 @@ public class PostsController {
             Like like = new Like(null, post, currentUser);
             likeRepository.save(like);
         }
-        return "redirect:/";
+        return "redirect:/#post-" + post_id;
     }
 
     @GetMapping("/posts/{id}/edit")
